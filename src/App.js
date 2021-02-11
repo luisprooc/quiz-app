@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect, useState} from 'react';
 import IntroQuiz from './components/intro-quiz';
 import ScienceQuiz from './components/science-quiz';
 import TecnologyQuiz from './components/tecnology-quiz';
@@ -6,6 +6,9 @@ import RandomQuiz from './components/random-quiz';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 const App = () => {
+  const [question,saveQuestion] = useState({});
+
+
   return(
       <section>
         <Router>
@@ -15,15 +18,15 @@ const App = () => {
             />
 
             <Route 
-              exact path="/quiz" component={() => <RandomQuiz />}
+                path="/quiz" component={() => <RandomQuiz />}
             />
 
             <Route 
-              exact path="/quiz/Ciencia" component={() => <ScienceQuiz />}
+                path="/quiz/Ciencia" component={() => <ScienceQuiz />}
             />
 
             <Route 
-              exact path="/quiz/Tecnologia" component={() => <TecnologyQuiz />}
+                path="/quiz/Tecnologia" component={() => <TecnologyQuiz />}
             />
 
           </Switch>
