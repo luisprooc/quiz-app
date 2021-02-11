@@ -1,0 +1,43 @@
+h1{
+    color: darkgreen;
+    font-weight: bold;
+    font-size: 4rem;
+    text-align: center;
+}
+
+.btn-success1{
+    background-color: #689F38;
+    color: white;
+    margin: 1rem 0;
+}
+
+.btn-success2{
+    background-color: #558B2F;
+    color: white;
+}
+
+h2{
+    font-size: 2rem;
+}
+
+.div-title{
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 576px){
+    .div-title{
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .btn-success1{
+        margin: 0;
+    }
+}
+
+@media (min-width: 768px) { 
+    h2{
+        font-size: 4rem;
+    }
+}
