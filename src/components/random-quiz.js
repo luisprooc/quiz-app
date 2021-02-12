@@ -1,11 +1,13 @@
-import React,{useEffect, useState,createRef} from 'react';
+import React,{useEffect, useState} from 'react';
 import '../styles/random.css';
+import Progress from './progress';
 
 const RandomQuiz = () => {
 
-    let [time,setTime] = useState(100);
-    const buttonRef = createRef();
+    const [count,setCount] = useState(false);
+    const [timer,setTimer] = useState(false);
     const [question,saveQuestion] = useState({});
+    const [random,setRandom] = useState(0);
 
     useEffect(()=>{
 
@@ -14,43 +16,48 @@ const RandomQuiz = () => {
                 .then(res => res.json())
                 .then(res => saveQuestion(res))
                 .catch(error => console.log(error))
-        }
-
-        /*
-        setTimeout(()=>{
-            if(time < 0){
-                buttonRef.current.classList.remove("disabled");
-                return;
-            };
             
-            setTime(time-=0.9);
-        },90);*/
+            setRandom(getRandomInt(1));
+        }
+        
 
-    },[]);
+    },[count]);
 
+    const nextQuestion = e => {
+        if(e.target.classList.contains("disabled")) return;
+        
+        e.target.classList.add("disabled");
+        setCount(false);
+        setTimer(true);
+    };
+
+    const getRandomInt =  (max) =>  Math.floor(Math.random() * Math.floor(max));
+    
 
     return(
         <div className="container py-5">
             <h1>RANDOM QUIZ</h1>
-            <div className="progress">
-                <div className="progress-bar progress-bar-striped bg-success" role="progressbar" style={{width: `${time}%`}} aria-valuenow={time} aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
-            {time <= 0?(
-                <div class="alert alert-dismissible alert-success">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong>Well done!</strong> You successfully read
+            <Progress setCount={setCount} timer={timer} setTimer={setTimer}/>
+            {count?(
+                <div className="alert alert-dismissible alert-secondary">
+                    <strong>Correct Answer: </strong> {question.Correct}
                 </div>
             ):null}
 
             { question && (
                 <div className="mt-4">
-                    <p className="icon">{question.Category === "Ciencia"?'🔬':'👩‍💻'}</p>
                     <h3 className="text-center">{question.Question}</h3>
+                    <div className="py-4 d-flex flex-column align-items-center">
+                        <button className="btn btn-info btnR">{random === 0?question.Correct:question.Incorrect}</button>
+                        <button className="btn btn-info m-4 btnR">{random === 1?question.Correct:question.Incorrect}</button>
+                        <button className="btn btn-info btnR">{question.Incorrect2}</button>
+                    </div>
                 </div>
 
             )}
-            <div className="d-flex mt-5 justify-content-end">
-                <button type="button" className="btn btn-success disabled btn-lg" ref={buttonRef} onClick={()=>{alert("e")}}>Next Question</button>
+            <div className="d-flex mt-4 justify-content-between">
+                <span className="icon">{question.Category === "Ciencia"?'🔬':'👩‍💻'}</span>
+                <button type="button" className={`btn btn-success ${count?"":"disabled"} btn-lg`}  onClick={(e)=> nextQuestion(e)}>Next Question</button>
             </div>
         </div>
     );

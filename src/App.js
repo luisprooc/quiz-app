@@ -3,11 +3,9 @@ import IntroQuiz from './components/intro-quiz';
 import ScienceQuiz from './components/science-quiz';
 import TecnologyQuiz from './components/tecnology-quiz';
 import RandomQuiz from './components/random-quiz';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route,Switch } from "react-router-dom";
 
 const App = () => {
-  const [question,saveQuestion] = useState({});
-
 
   return(
       <section>
