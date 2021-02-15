@@ -1,18 +1,10 @@
 import React,{useEffect,useState} from 'react';
 
-const Progress = ({setCount,timer,setTimer}) => {
+const Progress = ({setCount,setTimer}) => {
     let [time,setTime] = useState(100);
 
     useEffect(()=>{
         setTimeout(()=>{
-            if(time < 0){
-                setCount(true);
-                if(timer){
-                    setTime(110);
-                    setTimer(false);
-                }
-                return;
-            };
             
             setTime(time-=0.9);
         },90);
