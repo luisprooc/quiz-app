@@ -1,8 +1,6 @@
-import React,{useEffect,useState} from 'react';
+import React,{ useEffect } from 'react';
 
-const Progress = ({setCount,setReplied,replied}) => {
-    let [time,setTime] = useState(100);
-
+const Progress = ({ setCount,setReplied,replied,reset,setReset, setTime, time }) => {
 
     useEffect(() => {
         timer();
@@ -16,7 +14,7 @@ const Progress = ({setCount,setReplied,replied}) => {
             if(time > 0){
 
                 // rest time
-                setTime(time-=0.9);
+                setTime(time - 0.9);
                 
             }
 
@@ -32,8 +30,8 @@ const Progress = ({setCount,setReplied,replied}) => {
 
                 setTimeout(()=>{
                     setCount(false);
-
-
+                    setTime(100);
+                    reset?setReset(false):setReset(true);
                 },5000);
 
                 return;
